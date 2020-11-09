@@ -88,7 +88,32 @@
   - 애플리케이션 계층
   - 도메인명을 통해 IP주소 제공
   - IP 주소를 통해 도메인명 제공
+  
+<br>
 
+## HTTP
+- HTTP는 **클라이언트/서버 간의 통신이다.**
+- Request와 Response를 교환하여 성립한다.
+  - 클라이언트가 응답을 보내야지만 서버가 응답. (서버가 먼저 요청을 보내지 않음)
+- HTTP 메세지
+  - HTTP 요청 (Request)
+    - 메소드, URI, 프로토콜 버전, 헤더, 본문으로 구성
+    - **GET**, HEAD, DELETE, OPTIONS는 **본문이 없다 !! 매우 중요**
+  - HTTP 응답 (Response)
+    - 프로토콜 버전, 상태코드, 상태 텍스트, 헤더, 본문으로 구성<br>
+    
+- **HTTP는 상태를 유지하지 않는 프로토콜(Stateless)**
+  - HTTP는 지나간 요청, 응답 정보를 기억하지 않는다.
+  - 웹이 진화함에 따라, 상태를 저장해야할 필요가 생겼고 이를 위해 고안된 것이 쿠키(세션)이다.<br>
+  
+### HTTP의 메소드
+메소드 | 설명
+---- | ----
+GET | 리소스 획득 (**GET요청은 요청본문이 없다!! -> @RequestBody 사용 불가**)  
+POST | 엔티티 전송
+PUT | 엔티티 수정, 파일 전송 (<a href = "https://multifrontgarden.tistory.com/245"> POST vs PUT </a>)
+DELETE | 엔티티 삭제
+OPTIONS | 제공하고 있는 메소드 문의
 
 
 
