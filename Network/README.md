@@ -161,6 +161,48 @@ OPTIONS | 제공하고 있는 메소드 문의
     - **Individual ACK**: 각 패킷에 대한 확인 응답을 전송.  
     - Sender는 아직 ACK을 받지 못한 **모든 패킷에 대해 개별 타이머를 갖는다**    
     - **sequence number < sender window + receiver window**  
+<br>
+
+## UDP와 TCP  
+### UDP (User Datagram Protocol)  
+특징  
+- **Connectionless**  
+- **신뢰성을 보장하지 않음**  
+- **혼잡 제어 하지 않음**  
+- 패킷의 순서, 손실 **확인하지 않고 도착하는대로 응용계층으로 전달**  
+- **실시간 스트리밍**, **DNS**, SNMP 등에 사용  
+
+헤더 
+- source port #
+- dest port #
+- length
+- **checksum** (**에러를 수정하진 않지만, 망가진 데이터는 응용 계층으로 전달하지 않기 위해 checksum 필요**)  
+<br>
+
+### TCP (Transmission Control Protocol)  
+특징
+- **Connection oriented**
+  - 연결: 3 way handshaking  
+  - 연결종료: 4 way handshaking  
+- **신뢰성 보장**
+- **혼잡 제어**
+- 패킷의 **순서를 보장**하며, **손실없이** 모두 응용 계층으로 전달 
+- **Cumulative ACK** (**다음에 받을 패킷의 Sequence number를 전송**)  
+- Full duplex data 전송  
+
+헤더
+- source port #  
+- dest port #  
+- **sequence number**  
+- **ack number**  
+- **receive window (flow-control에 필요)**  
+- **checksum** 
+- flags 등  
+
+
+
+## 혼잡 제어
+**혼잡(Congestion)**: 전송 계층에서 네트워크가 처리할 수 있는 양을 초과하여 네트워크로 패킷을 보내는 것 (**Transport <-> Network**)
 
 <br>
 
