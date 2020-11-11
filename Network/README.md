@@ -150,11 +150,11 @@ OPTIONS | 제공하고 있는 메소드 문의
   패킷을 구분하기 위한 순서번호 (Sequence Number)가 필요  
   - **Go-Back-N**  
     - **Cumulative ACK**: 하나도 빠짐없이 받은 가장 마지막 패킷 순서번호를 응답.  
-      - 1,2,3,5 전송 -> ACK 1, ACK2, ACK 3, ACK 3 (**수신측에서 5번 패킷 버림**)   
-      - Sender는 아직 ACK을 받지 못한 **가장 오래된 패킷에 대해 타이머를 갖는다 (타이머는 하나)**  
-      - 최대 Window size만큼 한 번에 전송 가능  
-      - **receiver는 window가 필요없음**  
-      - **sequence number size > sender window size 를 만족해야 함**  
+    - 1,2,3,5 전송 -> ACK 1, ACK2, ACK 3, ACK 3 (**수신측에서 5번 패킷 버림**)   
+    - Sender는 아직 ACK을 받지 못한 **가장 오래된 패킷에 대해 타이머를 갖는다 (타이머는 하나)**  
+    - 최대 Window size만큼 한 번에 전송 가능  
+    - **receiver는 window가 필요없음**  
+    - **sequence number size > sender window size 를 만족해야 함**  
     
     
   - **Selective-repeat**   
