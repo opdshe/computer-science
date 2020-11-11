@@ -91,7 +91,7 @@
   
 <br>
 
-# 애플리케이션 계층
+# 애플리케이션 계층 (Application Layer)
 ## HTTP
 - HTTP는 **클라이언트/서버 간의 통신이다.**
 - Request와 Response를 교환하여 성립한다.
@@ -135,7 +135,32 @@ OPTIONS | 제공하고 있는 메소드 문의
   세션과 쿠키의 **가장 큰 차이는 저장 장소이다.** 쿠키는 사용자의 **로컬**에 저장되므로 단순히 파일을 읽는 작업이라 **처리 속도가 빠르다**는 장점이 있다. 하지만 로컬에 저장되는 만큼 **보안에 취약하다.**  
 세션은 로컬이 아닌 **서버에 저장된다.** 따라서, **보안상의 이점**이 있지만, 세션을 이용할 경우 매번 서버에 요청해야하므로 **처리 속도가 느리다.** 또한 무분별한 세션 사용은 서버에 부하를 줄 수 있다.  
 <a href = "https://medium.com/@chrisjune_13837/web-%EC%BF%A0%ED%82%A4-%EC%84%B8%EC%85%98%EC%9D%B4%EB%9E%80-aa6bcb327582"> 참고 </a> 
+<br><br>
 
+
+# 전송 계층 (Transport Layer)  
+## ARQ (Automatic Repeat Request)  
+**ARQ(검출후 재전송)**: 통신회선에서 착오가 발생하면 수신측은 착오의 발생을 송신측에 알리고, 송신측은 착오가 발생한 block을 재전송하는 방식
+- **stop-and-wait**  
+  송신측에서 하나의 패킷 전송 후, 수신측의 응담이 송신측에 도착해야 다음 패킷 전송
+  **전송 효율이 낮다**  
+  
+- **pipeline protocol**  
+  송신측에서 수신측의 응답을 기다리지 않고 **여러개의 패킷을 전송할 수 있다**
+  패킷을 구분하기 위한 순서번호 (Sequence Number)가 필요  
+  - **Go-Back-N**  
+    - **Cumulative ACK**: 하나도 빠짐없이 받은 가장 마지막 패킷 순서번호를 응답.  
+      - 1,2,3,5 전송 -> ACK 1, ACK2, ACK 3, ACK 3 (**수신측에서 5번 패킷 버림**)   
+      - Sender는 아직 ACK을 받지 못한 **가장 오래된 패킷에 대해 타이머를 갖는다 (타이머는 하나)**  
+      - 최대 Window size만큼 한 번에 전송 가능  
+      - **receiver는 window가 필요없음**  
+      - **sequence number size > sender window size 를 만족해야 함**  
+    
+    
+  - **Selective-repeat**   
+    - **Individual ACK**: 각 패킷에 대한 확인 응답을 전송.  
+    - Sender는 아직 ACK을 받지 못한 **모든 패킷에 대해 개별 타이머를 갖는다**    
+    - **sequence number < sender window + receiver window**  
 
 <br>
 
