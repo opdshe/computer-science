@@ -222,18 +222,56 @@ Receiver 측의 **Receive buffer가 수용할 수 있는 만큼만 데이터를 
   TCP헤더에 존재하는 **receive window**에 **receive buffer**의 빈공간의 크기를 기입하여 전송.  
   송신측은 전달받은 **receive window 크기에 맞게** 전송량 조절. 
 
+<br>
+
+### TCP의 혼잡 제어  
+네트워크 계층의 라우터에도 데이터를 담을 수 있는 **buffer**가 있다. 이 buffer가 무한하면 좋겠지만 현실은 그렇지 않다.  
+buffer가 수용할 수 있는 양 이상의 데이터가 buffer에 도착하면, 데이터는 **버려지기 시작한다.** 이는 **전송 효율 저하**를 야기한다.  
+데이터가 버려지는 양을 최소화 하기 위해, **전송 계층에서 네트워크 계층으로** 보내는 데이터 양을 조절하는 것을 **혼잡 제어**라고 한다.  
+(**Transport <-> Network**)  
+
+#### 기본 개념  
+데이터 손실을 줄이기 위해, Sender가 보내는 데이터의 양을 조절.  
+- **swnd**
+  - **sender**가 한 번에 보낼 수 있는 **window size**
+  - **swnd = min[rwnd, cwnd]**  
+  - 일반적으로 **rwnd >> cwnd**  -> **cwnd가 swnd를 결정**  
+<br>  
+
+- **cwnd**  
+  - **ACK를 확인하지 않고도 보낼 수 있는 데이터의 양**  
+  - cwnd는 네트워크 상태에 따라 **변화하는 값**
   
+
+#### 혼잡 제어 방법 
+ 
+- **AIMD(Additive Increse Multiplicative Decrese)**  
+  - 매 **RTT마다** cwnd를 **1씩 증가**  
+  - loss 발생 시 cwnd **반으로 감소**  
+  - **최적의 속도를 내기까지 오래걸린다는 단점이 있음**  
+
+- **Slow start & Congestion Avoidance**  
+  - **slow start**  
+    - **ACK**을 받을 때 마다 cwnd **1증가** -> 매 **RTT**마다 cwnd가 **2배로 증가**
+    - cwnd가 **ssthresh**(slow start threshold)에 도달할 때까지 진행<br>  
+  <br>
   
-
-
-
-
-
+  - **congestion avoidance**  
+    - **ACK**을 받을 때 마다 **MSS*MSS/cwnd** 만큼 증가 -> 매 **RTT**마다 **1MSS 증가**
+    - cwnd가 **ssthresh**에 도달한 이후부터 진행<br>  
+  <br>
   
-
-
-## 혼잡 제어
-**혼잡(Congestion)**: 전송 계층에서 네트워크가 처리할 수 있는 양을 초과하여 네트워크로 패킷을 보내는 것 (**Transport <-> Network**)
+  ✨ **패킷 손실이 발생하면 ??**
+  - Time out 상황  
+    - 패킷의 대량 손실을 의미 -> **심각한 네트워크 상황**  
+    - **cwnd를 1MSS로 설정 후 slow start 시작**
+  
+  - 3 Duplicated ACK 상황
+    - 특정 ACK은 못받았지만, 그 **뒤의 최소 3개의 패킷은 받았음을 의미** -> **심각하지 않은 네트워크 상황**  
+    - **cwnd를 반으로 설정 후 congestion avoidance 시작**  
+    
+  
+    
 
 <br>
 
