@@ -142,7 +142,7 @@ OPTIONS | 제공하고 있는 메소드 문의
 ## ARQ (Automatic Repeat Request)  
 **ARQ(검출후 재전송)**: 통신회선에서 착오가 발생하면 수신측은 착오의 발생을 송신측에 알리고, 송신측은 착오가 발생한 block을 재전송하는 방식
 - **stop-and-wait**  
-  송신측에서 하나의 패킷 전송 후, 수신측의 응담이 송신측에 도착해야 다음 패킷 전송
+  송신측에서 하나의 패킷 전송 후, 수신측의 응이 송신측에 도착해야 다음 패킷 전송  
   **전송 효율이 낮다**  
   
 - **pipeline protocol**  
@@ -188,6 +188,7 @@ OPTIONS | 제공하고 있는 메소드 문의
 - **혼잡 제어**
 - 패킷의 **순서를 보장**하며, **손실없이** 모두 응용 계층으로 전달 
 - **Cumulative ACK** (**다음에 받을 패킷의 Sequence number를 전송**)  
+- **GO-Back-N과 Selective repeat의 장점들을 적절히 섞어서 사용**  
 - Full duplex data 전송  
 
 헤더
@@ -199,6 +200,36 @@ OPTIONS | 제공하고 있는 메소드 문의
 - **checksum** 
 - flags 등  
 
+#### ✨ TCP의 재전송 트리거  
+- **Time Out**  
+- **Duplicated ACK**   
+
+  ❉ **TCP Fast Retransmition:** 타임 아웃되기 전에 세개의 Duplicated ACK을 통해 패킷 손실을 인지하고, 재전송 하는 것  
+  (네 개의 똑같은 ACK = 세 개의 Duplicated ACK)   
+<br>
+
+### TCP의 흐름 제어(flow control)  
+전송 계층에는 **receive buffer**라는 것이 존재한다. 응용계층에서 이 **receive buffer**에 있는 데이터를 읽어가야 데이터가 사라진다.  
+이 receive buffer의 크기는 무한하지 않다. 응용계층에서 데이터를 읽는 양보다 receive buffer에 도착하는 데이터의 양이 많으면,  
+데이터는 점점 쌓이게 되고 수용할 수 있는 양을 초과하면 데이터는 **버려진다.** 이때, 패킷이 버려지는 것을 막기 위해  
+Receiver 측의 **Receive buffer가 수용할 수 있는 만큼만 데이터를 보내도록 제어하는 것**을 **흐름 제어**라고 한다. (**End to End**)  
+
+#### 흐름 제어 방법  
+- **Stop-and-wait**  
+  패킷 전송 후 해당 패킷에 대한 응답이 도착해야 다음 패킷 전송  
+  
+- **Sliding Window**  
+  TCP헤더에 존재하는 **receive window**에 **receive buffer**의 빈공간의 크기를 기입하여 전송.  
+  송신측은 전달받은 **receive window 크기에 맞게** 전송량 조절. 
+
+  
+  
+
+
+
+
+
+  
 
 
 ## 혼잡 제어
