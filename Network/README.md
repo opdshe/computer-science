@@ -270,8 +270,20 @@ buffer가 수용할 수 있는 양 이상의 데이터가 buffer에 도착하면
     - 특정 ACK은 못받았지만, 그 **뒤의 최소 3개의 패킷은 받았음을 의미** -> **심각하지 않은 네트워크 상황**  
     - **cwnd를 반으로 설정 후 congestion avoidance 시작**  
     
+ <br>
+ 
+# 네트워크 계층 (Network Layer)
+### ✨ 라우팅 시스템의 변화
+- 이전의 라우팅 시스템
+  - 라우터 **각각이 개별적 forwarding table**을 가짐
+  - 패킷을 수신하면 **자신이 가진 forwading table에 근거하여** 경로 설정<br>
   
-    
+- **SDN**(Software Definded Networking)
+  - **Remote Controller**가 forwarding table을 결정하여 각 라우터에게 전달
+  - **중앙집권적**
+  - 장점
+    - 정책 변겨 시 하나의 Remote Controller만 수정하면 됨
+
 
 <br>
 
