@@ -368,8 +368,8 @@ buffer가 수용할 수 있는 양 이상의 데이터가 buffer에 도착하면
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/IPv4_Packet_-en.svg/1920px-IPv4_Packet_-en.svg.png" width="400" height="300">
 https://commons.wikimedia.org/w/index.php?curid=79949694
 
-✨ IP 헤더를 한 줄에 32bit로 정한 이유는??
-지금은 컴퓨터 기술이 발전해서, cpu가 한 번에 읽을 수 있는 양이 64bit가 되었지만, 이전에는 32비트였다
+#### ✨ IP 헤더를 한 줄에 32bit로 정한 이유는??  
+cpu가 **한 번에 읽을 수 있는 데이터의 크기가 32bit라서.** (지금은 64bit)  
 <br>
 <br>
 
@@ -377,6 +377,7 @@ https://commons.wikimedia.org/w/index.php?curid=79949694
 Link단계의 매체 종류에 따라 **한 번에 전송할 수 있는 데이터의 양이 다르다(MTU가 다르다).** Network Layer에서는 어떤 Link 매체를 경유하더라도 데이터가 전송될 수 있도록
 Fragmentation과 Reassembly기능을 제공한다.  
 ❉ **MTU(Maximum Transmission Unit)**: 한 패킷으로 보낼 수 있는 가장 큰 데이터의 양. (Link 매체에 따라 달라짐)  
+<br>
 
 #### ✨ MTU vs MSS  
 - **MSS(Maximum Segment Size)**: TCP에서 전송할 수 있는 데이터의 최대 크기. **TCP 헤더 포함하지 않는다. Application으로 부터 받은 양만 고려.**  
