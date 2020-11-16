@@ -338,7 +338,11 @@ buffer가 수용할 수 있는 양 이상의 데이터가 buffer에 도착하면
  <br>
  
 # 네트워크 계층 (Network Layer)
-### ✨ 라우팅 시스템의 변화
+### 네트워크 계층의 주 기능
+- **forwarding**: input으로 들어온 패킷을 적절한 output으로 **내보내는 것**
+- **routing**: source로부터 dest까지 패킷을 전송할 때, **어떤 경로를 통해 전송할 것인지를 결정하는 것**
+
+### 라우팅 시스템의 변화
 - 이전의 라우팅 시스템
   - 라우터 **각각이 개별적 forwarding table**을 가짐
   - 패킷을 수신하면 **자신이 가진 forwading table에 근거하여** 경로 설정<br>
@@ -348,6 +352,48 @@ buffer가 수용할 수 있는 양 이상의 데이터가 buffer에 도착하면
   - **중앙집권적**
   - 장점
     - 정책 변겨 시 하나의 Remote Controller만 수정하면 됨
+
+### 네트워크의 핵심 프로토콜
+- **IP(Internet Protocol)**
+  - 주소 부여 방법
+  - datagram 형식
+  - 패킷을 어떻게 처리할 지 등에 관한 규약
+- **Routing Protocol**
+  - 목적지까지의 경로 설정에 관한 규약
+  - RIP, BGP 등
+<br>
+
+## IP(Internet Protocol)
+### IP datagram format
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/IPv4_Packet_-en.svg/1920px-IPv4_Packet_-en.svg.png" width="400" height="300">
+https://commons.wikimedia.org/w/index.php?curid=79949694
+
+✨ IP 헤더를 한 줄에 32bit로 정한 이유는??
+지금은 컴퓨터 기술이 발전해서, cpu가 한 번에 읽을 수 있는 양이 64bit가 되었지만, 이전에는 32비트였다
+<br>
+<br>
+
+### Fragmentation과 Reassembly
+Link단계의 매체 종류에 따라 **한 번에 전송할 수 있는 데이터의 양이 다르다(MTU가 다르다).** Network Layer에서는 어떤 Link 매체를 경유하더라도 데이터가 전송될 수 있도록
+Fragmentation과 Reassembly기능을 제공한다.  
+❉ **MTU(Maximum Transmission Unit)**: 한 패킷으로 보낼 수 있는 가장 큰 데이터의 양. (Link 매체에 따라 달라짐)  
+
+#### ✨ MTU vs MSS  
+- **MSS(Maximum Segment Size)**: TCP에서 전송할 수 있는 데이터의 최대 크기. **TCP 헤더 포함하지 않는다. Application으로 부터 받은 양만 고려.**  
+- **MTU(Maximum Transmission Unit)**: Link Layer에서 전송할 수 있는 데이터의 최대 크기. **Ip 헤더를 포함**
+
+#### ✨ 데이터 전송 중에 다른 Link 매체를 만난다면 ??
+- 기존의 매체보다 전송량이 작은 매체를 만난 경우
+  - 전송량이 낮은 매체에 맞게 잘게 Fragmentation 진행
+  
+- 기존의 매체보다 전송량이 큰 매체를 만난 경우
+  - **Reassembly 작업 하지 않고** 전송
+  - **Reassembly는 최종 목적지에서만 실시**
+  
+
+
+
+
 
 
 <br>
