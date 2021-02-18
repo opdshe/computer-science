@@ -246,12 +246,17 @@ OPTIONS | 제공하고 있는 메소드 문의
     - 최대 Window size만큼 한 번에 전송 가능  
     - **receiver는 window가 필요없음**  
     - **sequence number size > sender window size 를 만족해야 함**  
+    - 패킷 유실 시 불필요한 재전송에 대한 오버헤드가 크다
+    - sequence number가 m비트로 표현될 떄 최대 window size = 2^m - 1
     
     
   - **Selective-repeat**   
     - **Individual ACK**: 각 패킷에 대한 확인 응답을 전송.  
     - Sender는 아직 ACK을 받지 못한 **모든 패킷에 대해 개별 타이머를 갖는다**    
     - **sequence number < sender window + receiver window**  
+    - sequence number가 m비트로 표현될 떄 최대 window size = 2^(m - 1)
+
+  - ✨ **최근 광케이블의 발달로 패킷 유실 확률이 낮아져서, 한 번 에 많이 보낼 수 있는 GO-BACK-N이 더 많이 사용되고 있다.**
 <br>
 
 ## UDP와 TCP  
