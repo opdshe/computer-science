@@ -167,3 +167,15 @@ PCB는 프로세스의 정보를 저장하는 운영체제의 자료구조이다
 - 실시간 처리 시스템
   - 공장 생산 라인, 항공기/미사일 제어 등 엄격한 데드라인이 요구되는 곳에서 사용하는 시스템
   - 하드웨어와 완전히 밀착된 SW를 개발하여 처리 속도를 최우선시 함
+
+<br>
+
+## Sync - Async / Blocking - Non Blocking
+- Blocking/NonBlocking은 호출되는 함수가 바로 제어권을 리턴하느냐 마느냐가 관심사
+  - 바로 리턴하지 않으면 Blocking
+  - 바로 리턴하면 NonBlocking
+
+- • Synchronous/Asynchronous는 호출되는 함수의 작업 완료 여부를 누가 신경쓰냐가 관심사
+  - 호출되는 함수의 작업 완료를 호출한 함수가 신경쓰면 Synchronous
+  - • 호출되는 함수의 작업 완료를 호출된 함수가 신경쓰면 Asynchronous
+
