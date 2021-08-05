@@ -179,3 +179,4 @@ PCB는 프로세스의 정보를 저장하는 운영체제의 자료구조이다
   - 호출되는 함수의 작업 완료를 호출한 함수가 신경쓰면 Synchronous
   - • 호출되는 함수의 작업 완료를 호출된 함수가 신경쓰면 Asynchronous
 
+<a href="https://ldh-developer.tistory.com/32">동기 비동기와 blocking/non-blocking 관련글(내 글) </a>
