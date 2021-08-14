@@ -121,6 +121,34 @@ DBMS 종류
 <br>
 <br>
 
+## 트랜잭션의 읽기 이상현상
+![image](https://user-images.githubusercontent.com/50160282/129444687-dd36bce7-bfdd-4b9a-983e-394dd4c80f49.png)
+
+## 트랜잭션의 고립 수준
+<img width="1410" alt="스크린샷 2021-08-14 오후 8 54 21" src="https://user-images.githubusercontent.com/50160282/129445471-5be12dba-20ea-4c40-bf79-6bc336019b69.png">
+
+<br>
+
+### ✨ 서버 다중화 상황에서 하나의 데이터 베이스 내 같은 데이터에 동시 접근을 막으려면 ??
+트랜잭션 고립 수준은 **읽기 이상현상**에 대한 격리 수준이다. 쓰기작업에 대한 동시접근을 막으려면 고립 수준만으로는 해결할 수 없다. Read Uncommitted, Read committed, Repeatable-read는 일반 select 시 락을 걸지 않는다. (shared lock, exclusive lock 모두 안건다) 따라서, 하나의 데이터에 대한 동기화 처리 불가능하다. Serializable의 경우 select 시 for update로 shared lock을 건다. 하나의 트랜잭션이 데이터에 Shared lock을 걸면 다른 트랜잭션은 해당 데이터에 Exclusive lock 걸 수 없다. 하지만 shared lock은 걸 수 있다. 
+```
+select query;
+update query;
+```
+위와 같은 트랜잭션을 두 트랜잭션이 동시에 두 트랜잭션이 실행했다고 가정하자. 두 트랜잭션 모두 동시에 select query를 실행하며 shared lock을 건다. 하지만 앞서 말했듯 shared lock이 걸린 데이터에 exclusive lock 을 걸 수가 없다. 즉 데드락 상황이 발생한다. 만약 하나의 Api server라면 synchronized 키워드로 해결할 수 있지만, 서버 다중화 상황이라면 synchronized로는 해결할 수 없다. 
+```
+select ... for update
+```
+위와 같이 select 시 배타락(exclusive lock)을 거는 것이 해결책이다. JPA는 아래와 같이 낙관적 락 사용해야 함
+```
+public interface ReviewRepository extends JpaRepository<Review, Long> {
+	@Lock(value = LockModeType.PESSIMISTIC_WRITE)
+	Optional<Review> findById(Long id);
+}
+```
+
+<br>
+
 ## 🌟 데이터의 무결성   
 ### 무결성의 종류  
 - **개체 무결성**   
