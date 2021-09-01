@@ -130,7 +130,7 @@ DBMS 종류
 <br>
 
 ### ✨ 서버 다중화 상황에서 하나의 데이터 베이스 내 같은 데이터에 동시 접근을 막으려면 ??
-트랜잭션 고립 수준은 **읽기 이상현상**에 대한 격리 수준이다. 쓰기작업에 대한 동시접근을 막으려면 고립 수준만으로는 해결할 수 없다. Read Uncommitted, Read committed, Repeatable-read는 일반 select 시 락을 걸지 않는다. (shared lock, exclusive lock 모두 안건다) 따라서, 하나의 데이터에 대한 동기화 처리 불가능하다. Serializable의 경우 select 시 for update로 shared lock을 건다. 하나의 트랜잭션이 데이터에 Shared lock을 걸면 다른 트랜잭션은 해당 데이터에 Exclusive lock 걸 수 없다. 하지만 shared lock은 걸 수 있다. 
+트랜잭션 고립 수준은 **읽기 이상현상**에 대한 격리 수준이다. 쓰기작업에 대한 동시접근을 막으려면 고립 수준만으로는 해결할 수 없다. Read Uncommitted, Read committed, Repeatable-read는 일반 select 시 락을 걸지 않는다. (shared lock, exclusive lock 모두 안건다) 따라서, 하나의 데이터에 대한 동기화 처리 불가능하다. Serializable의 경우 select 시 for share 로 shared lock을 건다. 하나의 트랜잭션이 데이터에 Shared lock을 걸면 다른 트랜잭션은 해당 데이터에 Exclusive lock 걸 수 없다. 하지만 shared lock은 걸 수 있다. 
 ```
 select query;
 update query;
