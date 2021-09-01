@@ -139,7 +139,7 @@ update query;
 ```
 select ... for update
 ```
-위와 같이 select 시 배타락(exclusive lock)을 거는 것이 해결책이다. JPA는 아래와 같이 낙관적 락 사용해야 함
+위와 같이 select 시 배타락(exclusive lock)을 거는 것이 해결책이다. JPA는 아래와 같이 비관적 락 사용해야 함
 ```
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 	@Lock(value = LockModeType.PESSIMISTIC_WRITE)
